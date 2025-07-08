@@ -12,33 +12,61 @@ Par défaut, la vidéo sera mise en non répertoriée.
 
 🛠 Installation
 bash
+
 Copier
+
 Modifier
+
 git clone https://github.com/tonpseudo/uploader-youtube-electron.git
+
 cd uploader-youtube-electron
+
 npm install
+
 npx playwright install
+
 npm start
+
 ⚙️ Configuration
+
 📂 Lignes à modifier dans upload.js :
+
 javascript
+
 Copier
+
 Modifier
+
 // Ligne pour ton profil Chrome local
+
 const browser = await chromium.launchPersistentContext(
+
   'C:/Users/zajon/Desktop/yt',  // <-- ton répertoire Chrome
+  
   {
+  
     headless: false,
+    
     executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    
     args: ['--disable-blink-features=AutomationControlled']
+    
   }
+  
 );
+
 🔒 Ligne pour la visibilité de la vidéo :
+
 javascript
+
 Copier
+
 Modifier
+
 await page.waitForSelector('tp-yt-paper-radio-button[name="UNLISTED"]', { timeout: 20000 });
+
 await page.click('tp-yt-paper-radio-button[name="UNLISTED"]');
+
 👉 Tu peux remplacer "UNLISTED" par :
 
 "PUBLIC" pour la publier en public
