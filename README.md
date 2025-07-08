@@ -1,145 +1,112 @@
-🇫🇷 Uploader YouTube Automatique (Electron + Playwright)
-🎯 Description
-Cette application Electron te permet de :
+# 📺 Uploader YouTube Automatique (Electron + Playwright)
 
-Sélectionner un fichier vidéo local.
+## 🇫🇷 Description
+Cette application desktop (Electron) permet :
+- de sélectionner un fichier vidéo local,
+- saisir un titre et une description,
+- et uploader automatiquement sur YouTube Studio via Playwright.
 
-Entrer un titre et une description.
+Par défaut, la vidéo est mise en **non répertoriée**.
 
-Lancer un upload automatique sur YouTube Studio via Playwright.
+---
 
-Par défaut, la vidéo sera mise en non répertoriée.
+## 🇬🇧 Description
+This desktop app (Electron) lets you:
+- select a local video file,
+- enter a title & description,
+- and automatically upload it to YouTube Studio via Playwright.
 
-🛠 Installation
-bash
+By default, the video is set as **unlisted**.
 
-Copier
+---
 
-Modifier
+## 🗂 Table des matières
+- 🇫🇷 Instructions d'installation
+- 🇬🇧 Installation instructions
+- ⚙️ Configuration du script
+- 🚀 Utilisation
+- 📝 Licence GPLv3
 
+---
+
+## 🇫🇷 Instructions d'installation
+
+```bash
 git clone https://github.com/tonpseudo/uploader-youtube-electron.git
-
 cd uploader-youtube-electron
-
 npm install
-
 npx playwright install
-
 npm start
-
-⚙️ Configuration
-
-📂 Lignes à modifier dans upload.js :
-
-javascript
-
-Copier
-
-Modifier
-
-// Ligne pour ton profil Chrome local
-
-const browser = await chromium.launchPersistentContext(
-
-  'C:/Users/zajon/Desktop/yt',  // <-- ton répertoire Chrome
-  
-  {
-  
-    headless: false,
-    
-    executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
-    
-    args: ['--disable-blink-features=AutomationControlled']
-    
-  }
-  
-);
-
-🔒 Ligne pour la visibilité de la vidéo :
-
-javascript
-
-Copier
-
-Modifier
-
-await page.waitForSelector('tp-yt-paper-radio-button[name="UNLISTED"]', { timeout: 20000 });
-
-await page.click('tp-yt-paper-radio-button[name="UNLISTED"]');
-
-👉 Tu peux remplacer "UNLISTED" par :
-
-"PUBLIC" pour la publier en public
-
-"PRIVATE" pour la mettre en privée
-
-✅ Utilisation
-Clique sur Choisir fichier et sélectionne ta vidéo.
-
-Remplis le titre et la description.
-
-Clique sur Uploader : l’upload est fait automatiquement dans ton navigateur contrôlé par Playwright.
-
-🚀 Roadmap
-✅ Version avec titre + description + choix fichier
-
-🚀 Choix direct de « Public / Privé / Non répertorié » dans l’interface
-
-🚀 Progress bar & retour du lien de la vidéo
-
-🇬🇧 YouTube Auto Uploader (Electron + Playwright)
-🎯 Description
-This Electron app lets you:
-
-Select a local video file.
-
-Enter a title and description.
-
-Automatically upload it to YouTube Studio via Playwright.
-
-By default, videos are uploaded as unlisted.
-
-🛠 Installation
+🇬🇧 Installation instructions
 bash
 Copier
 Modifier
-git clone https://github.com/youruser/uploader-youtube-electron.git
+git clone https://github.com/yourusername/uploader-youtube-electron.git
 cd uploader-youtube-electron
 npm install
 npx playwright install
 npm start
-⚙️ Configuration
-📂 Lines to modify in upload.js:
-javascript
-Copier
-Modifier
-// Line for your local Chrome profile
+⚙️ Configuration du script
+📂 Où modifier ton profil Chrome
+Dans upload.js, change ces lignes pour pointer sur ton profil Chrome :
+
+
 const browser = await chromium.launchPersistentContext(
-  'C:/Users/zajon/Desktop/yt',  // <-- your Chrome user data dir
+  'C:/Users/zajon/Desktop/yt',  // <-- ton profil Chrome local
   {
     headless: false,
     executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
-    args: ['--disable-blink-features=AutomationControlled']
+    args: ['--disable-blink-features=AutomationControlled'],
   }
 );
-🔒 Line for video visibility:
-javascript
-Copier
-Modifier
+🔒 Comment mettre la vidéo en PUBLIC ou PRIVATE
+Toujours dans upload.js, remplace :
+
+
 await page.waitForSelector('tp-yt-paper-radio-button[name="UNLISTED"]', { timeout: 20000 });
 await page.click('tp-yt-paper-radio-button[name="UNLISTED"]');
-👉 Replace "UNLISTED" with:
+par :
 
-"PUBLIC" to publish publicly
+"PUBLIC" pour une vidéo publique
 
-"PRIVATE" for private videos
+"PRIVATE" pour une vidéo privée
 
-✅ Usage
-Click Choose file and select your video.
+🚀 Utilisation
+Clique sur « Choisir fichier » pour sélectionner ta vidéo.
 
-Enter title & description.
+Saisis le titre et la description.
 
-Click Upload. The upload will be done in your controlled Chrome browser.
+Clique sur « Uploader ».
 
-📝 License
-GPL v3
+Ton navigateur Chrome automatisé s'ouvre et upload la vidéo sur YouTube Studio.
+
+📝 Licence - GPLv3
+
+Copyright (C) 2025 
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+
+
+---
+
+## ✨ Notes finales
+
+- ✅ Compatible Windows/macOS/Linux (il suffit d’adapter le chemin vers Chrome).
+- ✅ Nécessite que tu sois déjà connecté à ton compte YouTube dans ton profil Chrome.
+- ✅ Simple à forker et à améliorer (barre de progression, choix public/privé dans l'UI, etc).
+
+---
+
+🎉 **Bon upload !**
