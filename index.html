@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Uploader YouTube</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin-top: 15px; }
+    input[type=text], textarea { width: 100%; box-sizing: border-box; padding: 6px; }
+    button { margin-top: 15px; padding: 8px 15px; }
+    #status { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Uploader YouTube</h2>
+
+  <label>
+    Vidéo :<br />
+    <input type="text" id="video-path" readonly />
+    <button id="select-file">Choisir fichier</button>
+  </label>
+
+  <label>
+    Titre :<br />
+    <input type="text" id="titre" required />
+  </label>
+
+  <label>
+    Description :<br />
+    <textarea id="description" rows="5"></textarea>
+  </label>
+
+  <button id="upload-btn">Uploader</button>
+
+  <p id="status"></p>
+
+  <script>
+    const selectFileBtn = document.getElementById('select-file');
+    const videoPathInput = document.getElementById('video-path');
+    const uploadBtn = document.getElementById('upload-btn');
+    const titreInput = document.getElementById('titre');
+    const descriptionInput = document.getElementById('description');
+    const status = document.getElementById('status');
+
+    selectFileBtn.addEventListener('click', async () => {
+      const filePath = await window.electronAPI.openFileDialog();
+      if (filePath) {
+        videoPathInput.value = filePath;
+      }
+    });
+
+    uploadBtn.addEventListener('click', async () => {
+      const videoPath = videoPathInput.value.trim();
+      const titre = titreInput.value.trim();
+      const description = descriptionInput.value.trim();
+
+      if (!videoPath) {
+        status.textContent = "❌ Veuillez sélectionner une vidéo.";
+        return;
+      }
+      if (!titre) {
+        status.textContent = "❌ Veuillez entrer un titre.";
+        return;
+      }
+
+      status.textContent = "⏳ Upload en cours, merci de patienter...";
+
+      const result = await window.electronAPI.startUpload({ videoPath, titre, description });
+
+      if (result.success) {
+        status.textContent = "✅ Upload réussi !";
+      } else {
+        status.textContent = "❌ Échec de l’upload : " + result.error;
+      }
+    });
+  </script>
+</body>
+</html>
